@@ -9,11 +9,11 @@ class azw_TestSound extends BuildingSuper
     {
 		if (!eQuakeTimer)
         eQuakeTimer = new Timer();
-
+		
 		eQuakeTimer.Run(15 , this ,"StopSound" , NULL ,false );
-
+		
 		if ( GetGame().IsClient()  ||  !GetGame().IsMultiplayer() )	
-			GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(PlaySoundLayers, 15, false);
+		GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(PlaySoundLayers, 15, false);
     }
 
 	void ~azw_TestSound()
@@ -21,7 +21,7 @@ class azw_TestSound extends BuildingSuper
 		StopSound();
 		
 		if (eQuakeTimer)
-        delete eQuakeTimer;
+		delete eQuakeTimer;
     }
 
 	void PlaySoundLayers()
