@@ -5,8 +5,8 @@ class azw_TestSound extends BuildingSuper
 	protected ref EffectSound m_Equake_distant;
 	protected ref EffectSound m_SubBass;
 	
-    void azw_TestSound()
-    {
+	void azw_TestSound()
+	{
 		if (!eQuakeTimer)
         eQuakeTimer = new Timer();
 		
@@ -14,15 +14,15 @@ class azw_TestSound extends BuildingSuper
 		
 		if ( GetGame().IsClient()  ||  !GetGame().IsMultiplayer() )	
 		GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(PlaySoundLayers, 15, false);
-    }
-
+	}
+	
 	void ~azw_TestSound()
-    {
+	{
 		StopSound();
 		
 		if (eQuakeTimer)
 		delete eQuakeTimer;
-    }
+	}
 
 	void PlaySoundLayers()
 	{
