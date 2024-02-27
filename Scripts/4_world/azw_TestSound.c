@@ -8,7 +8,7 @@ class azw_TestSound extends BuildingSuper
 	void azw_TestSound()
 	{
 		if (!eQuakeTimer)
-        eQuakeTimer = new Timer();
+		eQuakeTimer = new Timer();
 		
 		eQuakeTimer.Run(15 , this ,"StopSound" , NULL ,false );
 		
