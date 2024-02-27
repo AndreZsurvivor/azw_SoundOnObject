@@ -43,6 +43,7 @@ class CfgVehicles
 		model="DZ\gear\radio\walkietalkie.p3d";
 	};
 };
+
 class CfgSoundCurves
 {
 	class azw_EQuakeClose_VolumeCurve
@@ -51,7 +52,7 @@ class CfgSoundCurves
 		{
 			{0,1},
 			{0.1,0.65},
-			{0.2,0.40},
+			{0.2,0.50},
 			{0.3,0.10},
 			{0.4,0.00},
 			{0.5,0.00},
@@ -69,7 +70,7 @@ class CfgSoundCurves
 		{
 			{0,0.10},
 			{0.1,0.35},
-			{0.2,0.60},
+			{0.2,0.50},
 			{0.3,0.90},
 			{0.4,1.00},
 			{0.5,0.90},
@@ -103,9 +104,9 @@ class CfgSound3DProcessors
 {
 	class azw_SubRumble3DProcessingType
 	{
-		type="emitter";
-		innerRange	= 50;
-		range		= 150;
+		type="panner";
+		innerRange	= 100;
+		range		= 200;
 	};
 };
 class CfgDistanceFilters
@@ -170,7 +171,8 @@ class CfgSoundSets
 		volumeFactor = 0.9;
 		doppler = 0;
 		spatial = 1;
-		volumeCurve="azw_EQuakeClose_VolumeCurve";
+		sound3DProcessingType="azw_SubRumble3DProcessingType";
+		volumeCurve="azw_SubRumble_VolumeCurve";
 		distanceFilter = "none";
 
 	};
