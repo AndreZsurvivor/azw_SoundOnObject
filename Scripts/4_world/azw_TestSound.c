@@ -1,7 +1,10 @@
 class azw_TestSound extends BuildingSuper
 {
 	ref ScriptInvoker Event_OnSoundFadeOutStarted;
-	ref Timer eQuakeTimer;
+
+	private ref Timer m_EquakeTimer01;
+	private ref Timer m_EquakeTimer02;
+	private ref Timer m_EquakeTimer03;
 	protected ref EffectSound m_Equake_close;
 	protected ref EffectSound m_Equake_distant;
 	protected ref EffectSound m_SubBass;
@@ -11,9 +14,17 @@ class azw_TestSound extends BuildingSuper
 	void azw_TestSound()
 	{
 		Event_OnSoundFadeOutStarted = new ScriptInvoker();
-		if (!eQuakeTimer)
-		eQuakeTimer = new Timer();
-		//eQuakeTimer.Run(15 , this ,"StopSound" , NULL ,false );
+
+		if (!m_EquakeTimer01)
+		m_EquakeTimer01 = new Timer();
+		if (!m_EquakeTimer02)
+		m_EquakeTimer02 = new Timer();
+		if (!m_EquakeTimer03)
+		m_EquakeTimer03 = new Timer();
+		
+		m_EquakeTimer01.Run( 2 , this ,"StopSound_Timer01" , NULL ,false );
+		m_EquakeTimer02.Run( 4 , this ,"StopSound_Timer02" , NULL ,false );
+		m_EquakeTimer03.Run( 6 , this ,"StopSound_Timer03" , NULL ,false );
 
 		if ( GetGame().IsClient()  ||  !GetGame().IsMultiplayer() )	
 		GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(PlaySoundLayers, 15, false);
@@ -23,26 +34,28 @@ class azw_TestSound extends BuildingSuper
 	{
 		StopSound();
 		
-		if (eQuakeTimer)
-		delete eQuakeTimer;
+		if (m_EquakeTimer01)
+		{
+			delete m_EquakeTimer01;
+			delete m_EquakeTimer02;
+			delete m_EquakeTimer03;
+		}
+
 	}
 
-	void azw_playTestToneLater()
+	void PlayTestTone()
 	{
 		if ( GetGame().IsClient()  ||  !GetGame().IsMultiplayer() )	
-		GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(azw_playTestTone, 15, false);
+		GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(m_PlayTestTone, 15, false);
 	}
 
-	void azw_playTestTone()
+	private void m_PlayTestTone()
 	{
-		
 		if (!m_azwTestTone || !m_azwTestTone.IsSoundPlaying())
-		m_azwTestTone = SEffectManager.PlaySoundOnObject_shuffledLoop("azw_TestTones_SoundSet", GetGame().GetPlayer(), 0, 0);
-		
-		if (m_azwTestTone)
-		m_azwTestTone.Start();
-
-
+		{
+			m_azwTestTone = SEffectManager.PlaySoundOnObject("azw_TestTones_SoundSet", GetGame().GetPlayer(), 0, 0, false);
+			m_azwTestTone.SetAutodestroy(true);	
+		}
 	}
 
 	void PlaySoundLayers()
@@ -56,8 +69,8 @@ class azw_TestSound extends BuildingSuper
 	{
 		if (!m_Equake_close || !m_Equake_close.IsSoundPlaying())
 		{
-			m_Equake_close = SEffectManager.PlaySoundOnObject_shuffledLoop("azw_EQuakeClose_SoundSet", this, 0, 1);
-			m_Equake_close.Event_OnSoundFadeOutStarted.Insert(azw_playTestTone);
+			m_Equake_close = SEffectManager.PlaySoundOnObject_shuffledLoop("azw_EQuakeClose_SoundSet", this, 0.1);
+			m_Equake_close.Event_OnSoundFadeOutStarted.Insert(PlayTestTone);
 		}
 	}
 
@@ -65,8 +78,8 @@ class azw_TestSound extends BuildingSuper
 	{
 		if (!m_Equake_distant || !m_Equake_distant.IsSoundPlaying())
 		{
-			m_Equake_distant = SEffectManager.PlaySoundOnObject_shuffledLoop("azw_EQuakeDistant_SoundSet", this, 0, 0.5);
-			m_Equake_distant.Event_OnSoundFadeOutStarted.Insert(azw_playTestTone);
+			m_Equake_distant = SEffectManager.PlaySoundOnObject_shuffledLoop("azw_EQuakeDistant_SoundSet", this, 0.1);
+			m_Equake_distant.Event_OnSoundFadeOutStarted.Insert(PlayTestTone);
 		}
 	}
 
@@ -74,8 +87,8 @@ class azw_TestSound extends BuildingSuper
 	{
 		if (!m_SubBass || !m_SubBass.IsSoundPlaying())
 		{
-			m_SubBass = SEffectManager.PlaySoundOnObject_shuffledLoop("azw_SubRumble_SoundSet", this, 0, 1.5);
-			m_SubBass.Event_OnSoundFadeOutStarted.Insert(azw_playTestTone);
+			m_SubBass = SEffectManager.PlaySoundOnObject_shuffledLoop("azw_SubRumble_SoundSet", this, 0.1);
+			m_SubBass.Event_OnSoundFadeOutStarted.Insert(PlayTestTone);
 		}
 	}
 
@@ -83,6 +96,24 @@ class azw_TestSound extends BuildingSuper
 	{
 		if ( GetGame().IsClient()  ||  !GetGame().IsMultiplayer() )	
 			GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(m_StopSound, 15, false);
+	}
+
+	void StopSound_Timer01()
+	{
+		if (m_Equake_close)
+			m_Equake_close.SoundStop();
+	}
+
+	void StopSound_Timer02()
+	{
+		if (m_Equake_distant)
+			m_Equake_distant.SoundStop();
+	}
+
+	void StopSound_Timer03()
+	{
+		if (m_SubBass)
+			m_SubBass.SoundStop();
 	}
 
 	private void m_StopSound()

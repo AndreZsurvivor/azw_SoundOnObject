@@ -4,10 +4,10 @@
 */
 modded class SEffectManager
 {
-	static EffectSound PlaySoundOnObject_shuffledLoop(string sound_set, Object parent_object, float play_fade_in = 0, float stop_fade_out = 0)
+	static EffectSound PlaySoundOnObject_shuffledLoop(string sound_set, Object parent_object, float fade = 0)
 	{
-        bool loop = false;
-		EffectSound effect_sound = CreateSound(sound_set, parent_object.GetPosition(), play_fade_in, stop_fade_out, loop);
+        bool loop = true;
+		EffectSound effect_sound = CreateSound(sound_set, parent_object.GetPosition(), fade, fade, loop);
 		
 		effect_sound.SetParent( parent_object );
 		effect_sound.SetLocalPosition( vector.Zero );
