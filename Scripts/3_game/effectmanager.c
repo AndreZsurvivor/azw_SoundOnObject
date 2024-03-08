@@ -7,9 +7,9 @@ modded class SEffectManager
 	static EffectSound azwPlaySoundOnObject_shuffledLoop(string sound_set, Object parent_object, float fade = 0)
 	{
 		EffectSound sound_A;
-        bool loop = false;
-		sound_A = CreateSound(sound_set, parent_object.GetPosition(), fade, fade, loop);		
-		azwPrepareSound(sound_A, parent_object);
+        bool loop = true;
+		sound_A = CreateSound(sound_set, parent_object.GetPosition(), (fade*0.9), (fade*1.1), loop);		
+		azwPrepareSound(sound_A, parent_object, false);
 		sound_A.SoundPlay();
 		return sound_A;
 	}
