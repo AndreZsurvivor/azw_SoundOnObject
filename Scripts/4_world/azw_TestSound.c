@@ -21,6 +21,9 @@ class azw_TestSound extends BuildingSuper
 		SoundDistant.Init("azw_EQuakeDistant_SoundSet",	this, 10, 2);
 		SoundSubBass.Init("azw_SubRumble_SoundSet",		this, 5, 2);
 		
+		SoundClose.SetFadeIn(0.5);
+		SoundClose.SetFadeOut(10);
+		SoundClose.SetTimer(5);
 		SoundClose.Play();
 		//SoundDistant.Play();
 		//SoundSubBass.Play();
@@ -32,7 +35,7 @@ class azw_TestSound extends BuildingSuper
 		if (!m_EquakeTimer02)
 			m_EquakeTimer02 = new Timer();
 		
-		//m_EquakeTimer01.Run( 5, this, "StopSound", NULL, false );
+		//m_EquakeTimer01.Run( 15, this, "StopSound", NULL, false );
 		//m_EquakeTimer02.Run( 2, this, "PlaySoundDelayed", NULL, false );
 	}
 	
@@ -54,9 +57,9 @@ class azw_TestSound extends BuildingSuper
 	
 	void StopSound()
 	{
-		SoundClose.StopHard();
-		SoundClose2.StopHard();
-		SoundDistant.StopHard();
-		SoundSubBass.StopHard();
+		SoundClose.Stop();
+		SoundClose2.Stop();
+		SoundDistant.Stop();
+		SoundSubBass.Stop();
 	}
 }
