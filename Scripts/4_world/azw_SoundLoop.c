@@ -120,10 +120,10 @@ class azw_SoundLoop
 	{
 		if (!m_Sound_A || !m_Sound_A.IsSoundPlaying())
 		{
-			if (m_IsStarting)
-				m_Sound_A = SEffectManager.azwPlaySoundOnObject_shuffledLoop(m_SoundSet, m_ParentObject, m_FadeInLength, m_FadeLength);
-			else
+			if (!m_IsStarting)
 				m_Sound_A = SEffectManager.azwPlaySoundOnObject_shuffledLoop(m_SoundSet, m_ParentObject, m_FadeLength);
+			else
+				m_Sound_A = SEffectManager.azwPlaySoundOnObject_shuffledLoop(m_SoundSet, m_ParentObject, m_FadeInLength, m_FadeLength);
 			
 			m_LoopTimer.Run( (m_LoopLength - m_FadeLength), this, "m_StopSounds", NULL, false );
 		}

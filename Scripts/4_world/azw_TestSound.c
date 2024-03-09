@@ -5,9 +5,6 @@ class azw_TestSound extends BuildingSuper
 	ref azw_SoundLoop SoundDistant;
 	ref azw_SoundLoop SoundSubBass;
 	
-	private ref Timer m_EquakeTimer01;
-	private ref Timer m_EquakeTimer02;
-
 	void azw_TestSound()
 	{
 
@@ -27,34 +24,17 @@ class azw_TestSound extends BuildingSuper
 		SoundClose.Play();
 		//SoundDistant.Play();
 		//SoundSubBass.Play();
-
-		
-		if (!m_EquakeTimer01)
-			m_EquakeTimer01 = new Timer();
-		
-		if (!m_EquakeTimer02)
-			m_EquakeTimer02 = new Timer();
-		
-		//m_EquakeTimer01.Run( 15, this, "StopSound", NULL, false );
-		//m_EquakeTimer02.Run( 2, this, "PlaySoundDelayed", NULL, false );
 	}
 	
 	void ~azw_TestSound()
 	{
 		StopSound();
-		
-		if (m_EquakeTimer01)
-			delete m_EquakeTimer01;
-		
-		if (!m_EquakeTimer02)
-			delete m_EquakeTimer02;
+		delete SoundClose;
+		delete SoundClose2;
+		delete SoundDistant;
+		delete SoundSubBass;
 	}
-	
-	void PlaySoundDelayed()
-	{
-		SoundClose2.Play();
-	}
-	
+
 	void StopSound()
 	{
 		SoundClose.Stop();
