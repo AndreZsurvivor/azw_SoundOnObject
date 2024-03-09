@@ -1,6 +1,5 @@
 class azw_SoundLoop
 {
-    ref ScriptInvoker Event_OnSoundFadeOutStarted;
     protected ref Timer m_LoopTimer;
 
     protected ref EffectSound m_Sound_A;
@@ -19,7 +18,6 @@ class azw_SoundLoop
 
     void azw_SoundLoop()
     {
-        Event_OnSoundFadeOutStarted = new ScriptInvoker();
         m_LoopTimer = new Timer();
         
         m_IsInitalized = false;
@@ -32,6 +30,10 @@ class azw_SoundLoop
 
     void Init(string sound_set, Object parent_object, float length, float fade)
     {
+		m_Sound_A = SEffectManager.CreateSound(sound_set, parent_object.GetPosition(), fade, fade, true);
+		m_Sound_B = SEffectManager.CreateSound(sound_set, parent_object.GetPosition(), fade, fade, true);
+		SEffectManager.azwPrepareSound(m_Sound_A, parent_object);
+		SEffectManager.azwPrepareSound(m_Sound_B, parent_object);
         m_SoundSet = sound_set;
         m_ParentObject = parent_object;
         m_LoopLength = length;
@@ -67,6 +69,7 @@ class azw_SoundLoop
 
     private void m_PlaySound_A()
 	{
+		Print("SoundA");
 		if (!m_Sound_A || !m_Sound_A.IsSoundPlaying())
 		{
 			
@@ -86,6 +89,7 @@ class azw_SoundLoop
     
     private void m_PlaySound_B()
 	{
+		Print("SoundB");
 		if (!m_Sound_B || !m_Sound_B.IsSoundPlaying())
 		{
 			

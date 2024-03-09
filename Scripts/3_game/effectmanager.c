@@ -14,7 +14,7 @@ modded class SEffectManager
 		return sound_A;
 	}
 	
-	static EffectSound azwPrepareSound(EffectSound sound, Object parent_object, bool autodestroy = true)
+	static EffectSound azwPrepareSound(EffectSound sound, Object parent_object, bool autodestroy = false)
 	{
 		sound.SetParent( parent_object );
 		sound.SetLocalPosition( vector.Zero );
